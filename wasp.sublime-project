@@ -1,0 +1,34 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"build_systems": [
+		{
+			"name": "cmake-build",
+			"cancel": {"kill": true},
+			"working_dir": "$project_path",
+			"shell_cmd": "cmake --build $project_path/build",
+			"env": {
+				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+			},
+			"variants": [
+				{
+					"name": "clean",
+					"shell_cmd": "rm -rf $project_path/build"
+				},
+				{
+					"name": "config debug",
+					"shell_cmd": "cmake -S $project_path -B $project_path/build -DCMAKE_BUILD_TYPE=Debug ; compdb -p $project_path/build list > $project_path/build/cc.json ; mv $project_path/build/cc.json $project_path/build/compile_commands.json"
+				},
+				{
+					"name": "config release",
+					"shell_cmd": "cmake -S $project_path -B $project_path/build -DCMAKE_BUILD_TYPE=Release ; compdb -p $project_path/build list > $project_path/build/cc.json ; mv $project_path/build/cc.json $project_path/build/compile_commands.json"
+				},
+			]
+		}
+	]
+}
